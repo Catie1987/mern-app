@@ -1,3 +1,63 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root{
+    --main-clr:#cf4662;
+
+    --background: #f3f3f3;
+    --background2: #fafafa;
+    --menu: #eeeeee;
+
+    --border: rgba(212,212,212);
+    --card: rgba(255,255,255);
+
+    --text-primary: #222831;
+    --text-secondary: rgba(115,115,115);
+
+    --cta: rgb(207, 70, 98);
+    --cta-active: rgba(124,58,237);
+    --cta-text: rgba(255,255,255);
+
+    --toggle-gradient1: #ffdeb3;
+    --toggle-gradient2: #f2a83a;
+    --hover-effect: #f3f4f6;
+
+    --line-style: #ffdde1;
+    --line-style2: #d8dadc;
+    --disable-text: #cacaca;
+    --deactive-text: #777;
+
+
+    background: var(--background);
+}
+
+.dark {
+    --main-clr:#cf4662;
+
+    --background: #2a303b;
+    --background2: #242932;
+    --menu: #222831;
+
+    --border: rgba(38,38,38);
+    --card: rgba(23,23,23);
+
+    --text-primary: #EEEEEE;
+    --text-secondary: rgba(115,115,115);
+
+    --cta: rgb(207, 70, 98);
+    --cta-active: rgba(79,70,229);
+    --cta-text: rgba(255,255,255);
+
+    --toggle-gradient1: #777;
+    --toggle-gradient2: #3a3a3a;
+    --hover-effect: #4b5563;
+
+    --line-style: #ffdde1;
+    --line-style2: #2a303b;
+    --disable-text: #717171;
+    --deactive-text: #4f4f4f;
+
+
+    background: var(--background);
+}

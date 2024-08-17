@@ -3,7 +3,14 @@
     font-family: "Poppins", sans-serif;
     font-weight: 500;
 }
-
-logo {
-    font-size: 1.5em;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
+
+/* //////////////////////
+
+
+
+///////////////*/

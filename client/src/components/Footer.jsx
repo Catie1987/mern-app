@@ -19,7 +19,7 @@ export default function FooterCom() {
         </div>
         <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
               
-              <div><h2 className="mb-12 md:mb-6 text-xl font-medium text-gray-900 uppercase dark:text-white h-4">Reading Topics</h2>
+              <div><h2 className="mb-6 md:mb-6 text-xl font-medium text-gray-900 uppercase dark:text-white h-4">Reading</h2>
                   
                   <ul className="text-gray-500 dark:text-gray-400 font-normal flex flex-col gap-2">
                     <li className='hover:text-[--cta]'><a href="#">Travel</a></li>

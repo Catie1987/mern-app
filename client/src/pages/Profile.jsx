@@ -148,7 +148,7 @@ export default function Profile() {
           type='text'
           id='username'
           placeholder='Username'
-          className='bg-slate-100 rounded-lg p-3'
+          className='bg-slate-100 rounded-lg p-3 border border-[--line-style2]'
           onChange={handleChange}
         />
         <input
@@ -156,14 +156,14 @@ export default function Profile() {
           type='email'
           id='email'
           placeholder='Email'
-          className='bg-slate-100 rounded-lg p-3'
+          className='bg-slate-100 rounded-lg p-3 border border-[--line-style2]'
           onChange={handleChange}
         />
         <input
           type='password'
           id='password'
           placeholder='Password'
-          className='bg-slate-100 rounded-lg p-3'
+          className='bg-slate-100 rounded-lg p-3 border border-[--line-style2]'
           onChange={handleChange}
         />
         <button className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>

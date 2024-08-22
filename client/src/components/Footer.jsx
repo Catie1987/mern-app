@@ -17,7 +17,7 @@ export default function FooterCom() {
           </div>
           </Link>
         </div>
-        <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+        <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
               
               <div><h2 className="mb-6 md:mb-6 text-xl font-medium text-gray-900 uppercase dark:text-white h-4">Reading</h2>
                   
@@ -25,8 +25,8 @@ export default function FooterCom() {
                     <li className='hover:text-[--cta]'><a href="#">Travel</a></li>
                     <li className='hover:text-[--cta]'><a href="#">Food</a></li>
                     <li className='hover:text-[--cta]'><a href="#">Place</a></li>
-                    <li className='hover:text-[--cta]'><a href="#">Hotel</a></li>
-                    <li className='hover:text-[--cta]'><a href="#">Homestay</a></li>
+                    <li className='hover:text-[--cta]'><a href="#">Stay</a></li>
+                    <li className='hover:text-[--cta]'><a href="#">Beauty</a></li>
                   </ul>
               </div>
               <div><h2 className='mb-6 h-4'></h2>
@@ -35,7 +35,7 @@ export default function FooterCom() {
                     <li className='hover:text-[--cta]'><a href="#">With love</a></li>
                     <li className='hover:text-[--cta]'><a href="#">Restaurant</a></li>
                     <li className='hover:text-[--cta]'><a href="#">Study</a></li>
-                    <li className='hover:text-[--cta]'><a href="#">Health Care</a></li>
+                    <li className='hover:text-[--cta]'><a href="#">Movie</a></li>
                     <li className='hover:text-[--cta]'><a href="#">Personal</a></li>
                   </ul>
               </div>

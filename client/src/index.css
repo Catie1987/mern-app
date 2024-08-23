@@ -63,8 +63,15 @@
     background: var(--background);
 }
 
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 body {
   height: 100vh;
+  -webkit-font-smoothing: antialiased;
 }
 
 .ql-editor {

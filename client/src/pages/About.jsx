@@ -5,7 +5,7 @@ export default function About() {
   return (
     <div className='relative isolate'>
       <BackGround />
-      <div className='p-28 px-3 max-w-6xl mx-auto grid md:grid-cols-2 md:gap-24 gap-12 min-h-screen'>
+      <div className='p-28 px-3 max-w-6xl mx-auto grid md:grid-cols-2 md:gap-24 gap-12'>
         <div className='flex flex-col gap-6 h-full justify-center'>
           <h1 className='text-4xl font-bold lg:text-5xl text-[--text-primary]'>About <span className='font-bold text-[--cta]'>Me</span></h1>
           <p className='text-[--text-primary] text-base lg:text-lg font-normal'>
@@ -16,9 +16,9 @@ export default function About() {
           </p>
             
         </div>
-        <div className='w-full flex justify-center'>
-          <div className='rounded-full bg-gradient-to-r from-[#cf4662] via-pink-500 to-[#cf4662] p-2 focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 shadow-lg shadow-pink-500/50 dark:shadow-lg dark:shadow-pink-800/80'>
-            <img className='object-cover h-full rounded-full filter grayscale hover:grayscale-0 cursor-pointer' src={ myImg } alt="" />
+        <div className='w-full h-full flex justify-center aspect-square items-center'>
+          <div className='rounded-full bg-gradient-to-r from-[#cf4662] via-pink-500 to-[#cf4662] p-0 focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 shadow-lg shadow-pink-500/50 dark:shadow-lg dark:shadow-pink-800/80'>
+            <img className='object-cover h-full rounded-full filter grayscale hover:grayscale-0 hover:p-3 cursor-pointer transition-all duration-300' src={ myImg } alt="" />
           </div>
         </div>
       </div>

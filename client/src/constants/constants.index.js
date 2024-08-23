@@ -1,11 +1,7 @@
-import {
-    RxCrop,
-    RxDesktop,
-    RxPencil2,
-    RxReader,
-    RxRocket,
-    RxAccessibility,
-  } from "react-icons/rx";
+
+
+  import { BsLuggageFill } from "react-icons/bs";
+  import { FaBurger, FaHeart, FaHotel, FaRibbon } from "react-icons/fa6";
 
 import Topic1 from "../assets/cat/topic1.jpg";
 import Topic2 from "../assets/cat/topic2.jpg";
@@ -16,33 +12,33 @@ import Topic5 from "../assets/cat/topic5.jpg";
 
 export const ServiceData = [
   {
-    icon: RxCrop,
+    icon: BsLuggageFill,
     title: "Travel",
-    content: "Lorem ipsum dolor sit /amet, consectetur adipiscing elit.",
+    content: "Follow every steps of our journey around the world",
     backgroundImage: Topic1,
   },
   {
-    icon: RxPencil2,
+    icon: FaBurger,
     title: "Food",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    content: "Delicious, food decoration, and the joy of cooking and eating",
     backgroundImage: Topic2,
   },
   {
-    icon: RxDesktop,
+    icon: FaHeart,
     title: "With love",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    content: "Our romantic moment and ...flirting each other",
     backgroundImage: Topic3,
   },
   {
-    icon: RxReader,
+    icon: FaHotel,
     title: "Stay",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    content: "Review homestay, resort or hotels that we've been through",
     backgroundImage: Topic4,
   },
   {
-    icon: RxAccessibility,
+    icon: FaRibbon,
     title: "Beauty",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    content: "Cosmetic review, Make up tips that has been collected",
     backgroundImage: Topic5,
   },
 

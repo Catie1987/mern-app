@@ -21,7 +21,7 @@ export default function Home() {
     <BackGround />
       <div className='p-28 px-3 max-w-6xl mx-auto grid md:grid-cols-2 md:gap-24 gap-12'>
         <div className='flex flex-col gap-6 h-full justify-center'>
-          <h1 className='text-4xl font-bold lg:text-5xl text-[--text-primary]'>Welcome to our Amazing World</h1>
+          <h1 className='text-4xl font-bold lg:text-5xl text-[--text-primary]'>Welcome to our <span className='font-bold text-[--cta]'>Amazing</span> World</h1>
           <p className='text-[--text-primary] text-base lg:text-lg font-normal'>
           I use this space to document my adventures in travelling and sight-seeing, sharing how I’ve overcome issues I’ve run into, useful resources, and more.
           </p>
@@ -35,7 +35,7 @@ export default function Home() {
                   </Link>
               </div>
               <div>
-                <a className='flex items-center gap-2 px-10 py-2 rounded-lg text-xl text-white bg-gradient-to-r from-[#cf4662] via-pink-500 to-[#cf4662] hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 shadow-lg shadow-pink-500/50 dark:shadow-lg dark:shadow-pink-800/80' href="#">Featured topics</a>
+                <a className='flex items-center gap-2 px-10 py-2 rounded-lg text-xl text-white bg-gradient-to-r from-[#cf4662] via-pink-500 to-[#cf4662] hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 shadow-lg shadow-pink-500/50 dark:shadow-lg dark:shadow-pink-800/80' href="#topic">Featured topics</a>
               </div>
             </div>
         </div>
@@ -44,7 +44,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className='p-3 '>
+      <div className='p-3' id='topic'>
         <CallToAction />
       </div>
 
@@ -52,18 +52,18 @@ export default function Home() {
 
       <div className='max-w-6xl mx-auto p-3 flex flex-col gap-8 py-7'>
         {posts && posts.length > 0 && (
-          <div className='flex flex-col gap-6'>
-            <h2 className='text-2xl font-semibold text-center'>Recent Posts</h2>
-            <div className='flex flex-wrap gap-4'>
+          <div className='flex flex-col gap-6 mt-10'>
+            <h2 className='text-4xl font-bold lg:text-5xl text-[--text-primary] text-center'>Recent <span className='font-bold text-[--cta]'>Posts</span></h2>
+            <div className='grid gap-4 lg:grid-cols-3 sm:max-lg:grid-cols-2'>
               {posts.map((post) => (
                 <PostCard key={post._id} post={post} />
               ))}
             </div>
             <Link
               to={'/search'}
-              className='text-lg text-teal-500 hover:underline text-center'
+              className='text-lg text-[--cta] hover:underline text-center'
             >
-              View all posts
+              View more...
             </Link>
           </div>
         )}

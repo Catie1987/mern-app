@@ -61,6 +61,7 @@ export default function PostPage() {
       <h1 className='text-4xl font-bold lg:text-5xl text-[--text-primary] text-center my-5'>
         {post && post.title}
       </h1>
+      
       <Link
         to={`/search?category=${post && post.category}`}
         className='self-center mt-5'

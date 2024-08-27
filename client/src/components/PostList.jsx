@@ -32,6 +32,7 @@ export default function PostList({ post }) {
                     >
                     Read article
                 </Link>
+                
             </div>
         </div>
     )

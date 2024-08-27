@@ -104,11 +104,12 @@ export default function CreatePost() {
           >
             <option value='uncategorized'>Select a category</option>
             <option value='travel'>Travel</option>
-            <option value='food'>Food</option>
+            <option value='cooking'>Cooking</option>
             <option value='place'>Place</option>
             <option value='stay'>Stay</option>
             <option value='beauty'>Beauty</option>
-            <option value='withlove'>With love</option>
+            <option value='withlove'>With Love</option>
+            <option value='foodreview'>Food Review</option>
             <option value='study'>Study</option>
             <option value='movie'>Movie</option>
             <option value='personal'>Personal</option>

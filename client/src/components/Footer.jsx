@@ -23,7 +23,7 @@ export default function FooterCom() {
                   
                   <ul className="text-gray-500 dark:text-gray-400 font-normal flex flex-col gap-2">
                     <li className='hover:text-[--cta]'><a href="#">Travel</a></li>
-                    <li className='hover:text-[--cta]'><a href="#">Food</a></li>
+                    <li className='hover:text-[--cta]'><a href="#">Cooking</a></li>
                     <li className='hover:text-[--cta]'><a href="#">Place</a></li>
                     <li className='hover:text-[--cta]'><a href="#">Stay</a></li>
                     <li className='hover:text-[--cta]'><a href="#">Beauty</a></li>
@@ -33,7 +33,7 @@ export default function FooterCom() {
                   
                   <ul className="text-gray-500 dark:text-gray-400 font-medium flex flex-col gap-2">
                     <li className='hover:text-[--cta]'><a href="#">With love</a></li>
-                    <li className='hover:text-[--cta]'><a href="#">Restaurant</a></li>
+                    <li className='hover:text-[--cta]'><a href="#">Food review</a></li>
                     <li className='hover:text-[--cta]'><a href="#">Study</a></li>
                     <li className='hover:text-[--cta]'><a href="#">Movie</a></li>
                     <li className='hover:text-[--cta]'><a href="#">Personal</a></li>

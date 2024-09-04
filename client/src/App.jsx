@@ -4,6 +4,7 @@ import About from './pages/About';
 import SignIn from './pages/SignIn';
 import Dashboard from './pages/Dashboard';
 import Blog from './pages/Blog';
+import Gallery from './pages/Gallery';
 import SignUp from './pages/SignUp';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -17,13 +18,20 @@ import ScrollToTop from './components/ScrollToTop';
 import Search from './pages/Search';
 import './style/style.css';
 
+
+
 export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+
       <Header />
+
       <Routes>
+        
         <Route path='/' element={<Home />} />
+        
+        
         <Route path='/about' element={<About />} />
         
         <Route path='/sign-in' element={<SignIn />} />
@@ -35,9 +43,12 @@ export default function App() {
         <Route element={<OnlyAdminPrivateRoute />}>
           <Route path='/create-post' element={<CreatePost />} />
           <Route path='/update-post/:postId' element={<UpdatePost />} />
+          
         </Route>
 
         <Route path='/blog' element={<Blog />} />
+        <Route path='/gallery' element={<Gallery />} />
+        
         <Route path='/post/:postSlug' element={<PostPage />} />
       </Routes>
       <BackToTopButton/>

@@ -1,236 +1,114 @@
-import { Alert, Button, FileInput, Select, TextInput } from 'flowbite-react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
-import {
-  getDownloadURL,
-  getStorage,
-  ref,
-  uploadBytesResumable,
-} from 'firebase/storage';
-import { app } from '../firebase';
-import uploadToCloudinary from '../constants/upload'
-import { useState ,useCallback,useRef } from 'react';
-import { CircularProgressbar } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
+const AdminCreateProduct = () => {
 
-export default function CreatePost() {
-  const [file, setFile] = useState(null);
-  const [imageUploadProgress, setImageUploadProgress] = useState(null);
-  const [imageUploadError, setImageUploadError] = useState(null);
-  const [formData, setFormData] = useState({});
-  const [publishError, setPublishError] = useState(null);
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+    const [price, setPrice] = useState('');
+    const [category, setCategory] = useState('');
+    const [image, setImage] = useState([]);
 
-  const navigate = useNavigate();
-  const reactQuillRef = useRef<ReactQuill>(null);
-  const imageHandler = useCallback(() => {
-    const input = document.createElement("input");
+    //categories from the backend
+    const [categories, setCategories] = useState([]);
+
+    useEffect(()=>{
+        axios.get('/api/category/all')
+        .then(cat =>{
+            console.log(cat.data.categories);
+            setCategories(cat.data.categories)
+        })
+        .catch(error =>{
+            console.log(error)
+        })
+    }, [])
+
+    //handle and convert it in base 64
+    const handleImage = (e) =>{
+        const file = e.target.files[0];
+        setFileToBase(file);
+        console.log(file);
+    }
+
+    const setFileToBase = (file) =>{
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () =>{
+            setImage(reader.result);
+        }
+
+    }
     
-    input.setAttribute("type", "file");
-    input.setAttribute("accept", "image/*");
-    input.click();
-    input.onchange = async () => {
-      if (input !== null && input.files !== null) {
-        const file = input.files[0];
-        const url = await uploadToCloudinary(file);
-        const quill = reactQuillRef.current;
-        if (quill) {
-          const range = quill.getEditorSelection();
-          range && quill.getEditor().insertEmbed(range.index, "image", url);
+    //submit the form
+    const submitForm = async (e) =>{
+        e.preventDefault();
+        try {
+            const {data} = await axios.post('/api/product/create', {name, description, price, category, image})
+            if  (data.success === true){
+                setName('');
+                setDescription('');
+                setPrice('');
+                setCategory('');
+                setImage('');
+                toast.success('product created successfully')
+            }
+            console.log(data);
+        } catch (error) {
+            console.log(error)
         }
-        
-      }
-    };
-  }, []);
 
-  const handleUpdloadImage = async () => {
-    try {
-      if (!file) {
-        setImageUploadError('Please select an image');
-        return;
-      }
-      setImageUploadError(null);
-      const storage = getStorage(app);
-      const fileName = new Date().getTime() + '-' + file.name;
-      const storageRef = ref(storage, fileName);
-      const uploadTask = uploadBytesResumable(storageRef, file);
-      uploadTask.on(
-        'state_changed',
-        (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          setImageUploadProgress(progress.toFixed(0));
-        },
-        (error) => {
-          setImageUploadError('Image upload failed');
-          setImageUploadProgress(null);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            setImageUploadProgress(null);
-            setImageUploadError(null);
-            setFormData({ ...formData, image: downloadURL });
-          });
-        }
-      );
-    } catch (error) {
-      setImageUploadError('Image upload failed');
-      setImageUploadProgress(null);
-      console.log(error);
     }
-  };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await fetch('/api/post/create', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        setPublishError(data.message);
-        return;
-      }
 
-      if (res.ok) {
-        setPublishError(null);
-        navigate(`/post/${data.slug}`);
-      }
-    } catch (error) {
-      setPublishError('Something went wrong');
-    }
-  };
   return (
-    <div className='p-3 max-w-3xl mx-auto min-h-screen'>
-      <h1 className='text-center text-3xl my-7 font-semibold'>Create a post</h1>
-      <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
-        <div className='flex flex-col gap-4 sm:flex-row justify-between'>
-          <TextInput
-            type='text'
-            placeholder='Title'
-            required
-            id='title'
-            className='flex-1'
-            onChange={(e) =>
-              setFormData({ ...formData, title: e.target.value })
-            }
-          />
-          <Select
-            onChange={(e) =>
-              setFormData({ ...formData, category: e.target.value })
-            }
-          >
-            <option value='uncategorized'>Select a category</option>
-            <option value='travel'>Travel</option>
-            <option value='cooking'>Cooking</option>
-            <option value='place'>Place</option>
-            <option value='stay'>Stay</option>
-            <option value='beauty'>Beauty</option>
-            <option value='withlove'>With Love</option>
-            <option value='foodreview'>Food Review</option>
-            <option value='study'>Study</option>
-            <option value='movie'>Movie</option>
-            <option value='personal'>Personal</option>
-          </Select>
-        </div>
-        <div className='flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3'>
-          <FileInput
-            type='file'
-            accept='image/*'
-            onChange={(e) => setFile(e.target.files[0])}
-          />
-          <Button
-            type='button'
-            gradientDuoTone='purpleToBlue'
-            size='sm'
-            outline
-            onClick={handleUpdloadImage}
-            disabled={imageUploadProgress}
-          >
-            {imageUploadProgress ? (
-              <div className='w-16 h-16'>
-                <CircularProgressbar
-                  value={imageUploadProgress}
-                  text={`${imageUploadProgress || 0}%`}
-                />
-              </div>
-            ) : (
-              'Upload Image'
-            )}
-          </Button>
-        </div>
-        {imageUploadError && <Alert color='failure'>{imageUploadError}</Alert>}
-        {formData.image && (
-          <img
-            src={formData.image}
-            alt='upload'
-            className='w-full h-72 object-cover'
-          />
-        )}
-        <ReactQuill
-          theme='snow'
-          placeholder='Write something...'
-          className='h-72 mb-12'
-          required
-          modules={{
-            toolbar: {
-              container: [
-                [{ header: "1" }, { header: "2" }],
-                [{ size: [] }],
-                ["bold", "italic", "underline", "strike", "blockquote"],
-                [
-                  { list: "ordered" },
-                  { list: "bullet" },
-                  { indent: "-1" },
-                  { indent: "+1" },
-                ],
-                ["link", "image", "video"],
+   <>
+   <Header/>
+     <div className="container custom_class">
+        <h2 className="signup_title ">CREATE PRODUCT</h2>
+        <form className=" col-sm-6 offset-3 pt-5 signup_form " enctype="multipart/form-data" onSubmit={submitForm}>
+            
+            <div className="form-outline mb-4">
+                <input onChange={(e)=>setName(e.target.value)} type="text" id="form4Example1" className="form-control"  value={name}/>
+                <label className="form-label" htmlFor="form4Example1">Name</label>
+            </div>
+
+            
+            <div className="form-outline mb-4">
+                <textarea  onChange={(e)=>setDescription(e.target.value)}   type="text" id="form4Example2" className="form-control"  value={description}/>
+                <label className="form-label" htmlFor="form4Example2">Description </label>
+            </div>
+
+            <div className="form-outline mb-4">
+                <input  onChange={(e)=>setPrice(e.target.value)}  type="number" id="form4Example3" className="form-control"   value={price}/>
+                <label className="form-label" htmlFor="form4Example2">Price </label>
+            </div>
+
+
+            <div className="form-outline mb-1">
+                <select  onChange={(e)=>setCategory(e.target.value)}   id="category" name="cars" className="form-control select select-initialized"  value={category}>
+                    <option value="" >Choose Category</option>
+                    {
+                        categories && categories.map(cat =>(
+                            <option key={cat._id}  value={cat._id} >{cat.name}</option>
+                        ))
+                    }
                 
-                ["clean"],
-              ],
-              handlers: {
-                image: imageHandler,
-              },
-            },
-            clipboard: {
-              matchVisual: false,
-            },
-          }}
-          formats={[
-            "header",
+                </select>
+            </div>
+
+
+            <div className="form-outline mb-4">
+                <input onChange={handleImage}  type="file" id="formupload" name="image" className="form-control"  />
+                <label className="form-label" htmlFor="form4Example2">Image</label>
+            </div>
+            <img className="img-fluid" src={image} alt="" />
+            <button  type="submit" className="btn btn-primary btn-block mb-4">Create</button>
             
-            "size",
-            "bold",
-            "italic",
-            "underline",
-            "strike",
-            "blockquote",
-            "list",
-            "bullet",
-            "indent",
-            "link",
-            "image",
-            "video",
-            
-          ]}
-          onChange={(value) => {
-            setFormData({ ...formData, content: value });
-            
-          }}
-        />
-        <Button type='submit' gradientDuoTone='purpleToPink'>
-          Publish
-        </Button>
-        {publishError && (
-          <Alert className='mt-5' color='failure'>
-            {publishError}
-          </Alert>
-        )}
-      </form>
-    </div>
-  );
+         </form>
+    </div> 
+    <Footer/>  
+   </>
+  )
 }
+
+export default AdminCreateProduct

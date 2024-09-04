@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 import CallToAction from '../components/CallToAction';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import PostCard from '../components/PostCard';
 import BackGround from '../components/BackGround';
-import { BsArrowRight, BsStarFill } from "react-icons/bs";
+import { BsArrowRight } from "react-icons/bs";
+
+
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
@@ -43,11 +45,13 @@ export default function Home() {
           <img className='object-cover' src="//unsplash.it/510" alt="" />
         </div>
       </div>
-
+      
       <div className='p-3' id='topic'>
+        
         <CallToAction />
+        
       </div>
-
+      
       
 
       <div className='max-w-6xl mx-auto p-3 flex flex-col gap-8 py-7'>

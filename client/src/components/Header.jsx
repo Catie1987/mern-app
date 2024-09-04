@@ -132,6 +132,9 @@ export default function Header() {
         <Navbar.Link active={path === '/blog'} as={'div'}>
           <Link to='/blog'><span className='h-10 flex items-center'>Blog</span></Link>
         </Navbar.Link>
+        <Navbar.Link active={path === '/gallery'} as={'div'}>
+          <Link to='/gallery'><span className='h-10 flex items-center'>Gallery</span></Link>
+        </Navbar.Link>
         <div className='mt-3 md:mt-0'>
         {currentUser ? (
         <Dropdown
@@ -156,7 +159,7 @@ export default function Header() {
             <Link to={'/create-post'}>
               <Dropdown.Item icon={HiOutlinePencilAlt}>Write Blog</Dropdown.Item>
             </Link>
-            <Link to={'/'}>
+            <Link to={'/dashboard?tab=posts'}>
               <Dropdown.Item icon={HiOutlineServer}>My Posts</Dropdown.Item>
             </Link>
             <Dropdown.Divider />

@@ -7,7 +7,7 @@ import "swiper/css/free-mode";
 import { SwiperNavButtons } from '../constants/SwiperNavButton';
 
 
-import { FreeMode, Pagination, Navigation } from "swiper/modules";
+import { Navigation } from "swiper/modules";
 
 import { RxArrowTopRight } from "react-icons/rx";
 import { ServiceData } from "../constants/constants.index";

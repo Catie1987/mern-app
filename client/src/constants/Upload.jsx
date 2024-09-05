@@ -46,7 +46,7 @@ const Upload = () => {
       {
         cloudName,
         uploadPreset,
-        sources: ['local', 'url'],
+        sources: ['local', 'url','camera', 'unsplash'],
         tags: ['myphotoalbum-react'],
         clientAllowedFormats: ['image'],
         resourceType: 'image',

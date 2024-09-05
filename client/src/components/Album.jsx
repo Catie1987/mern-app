@@ -18,14 +18,16 @@ const Album = () => {
     );
     
     const data = await response.json();
-    
+    try {
     if (Array.isArray(data.resources)) {
       setPhotos(data.resources);
     } else {
       console.error('Data format is not as expected:', data);
     }
     setLoading(false);
-    console.log(photos) 
+  } catch (error) {
+    next(error);
+  }
     
 };
   useEffect(() => {
@@ -40,19 +42,30 @@ const Album = () => {
   const currentItems = photos.slice(offset, offset + itemsPerPage);
   const pageCount = Math.ceil(photos.length / itemsPerPage);
 
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleClick = (photo) => {
+    setSelectedImage(photo);
+  };
+
+  const handleClose = () => {
+    setSelectedImage(null);
+  };
+
   return (
-    <div className="m-2 space-y-4 min-h-screen flex flex-col justify-between">
-      <div>
+    <div className="m-2 space-y-4">
+      <div className='min-h-screen mb-5'>
       {loading && <p className="font-bold">Loading gallery</p>}
       {!loading && photos.length !== 0 ? (
-        <div className="columns-2 md:columns-3 lg:columns-4 gap-4 lg:[&>div:not(:first-child)]:mt-4 [&>div:not(:first-child)]:mt-4">
+        <div className="columns-2 md:columns-3 lg:columns-4 gap-4 lg:[&>div:not(:first-child)]:mt-4 [&>div:not(:first-child)]:mt-4 ">
           {currentItems.map((photo, idx) => {
             return (
-              <div className="max-w-full h-auto" key={idx}>
+              <div className="max-w-full h-auto" 
+              onClick={() => handleClick(photo)}
+              key={idx}>
                 <CldImage 
                 publicId={photo.public_id}
                 width="500"
-                height="400"
                 sizes="100vw" 
                 />
               </div>
@@ -89,6 +102,11 @@ const Album = () => {
             activeLinkClassName="text-[--cta] text-xl border-t-2 border-[--cta] w-10 h-10 flex items-center justify-center -mt-1 pt-1 font-semibold"
         />
     </div>
+    {selectedImage && (
+        <div className="fixed -top-10 z-50 inset-0 bg-black bg-opacity-75 flex items-center justify-center" onClick={handleClose}>
+          <img src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUDINARY_NAME}/image/upload/${selectedImage.public_id}`} alt="Selected" className="max-w-full max-h-full" />
+        </div>
+      )}
     </div>
   );
 };

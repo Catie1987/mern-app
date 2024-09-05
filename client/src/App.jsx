@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import LoadingSpinner from './constants/LoadingSpinner';
 import Home from './pages/Home';
 import About from './pages/About';
 import SignIn from './pages/SignIn';
@@ -21,36 +23,46 @@ import './style/style.css';
 
 
 export default function App() {
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }, []);
   return (
+    
     <BrowserRouter>
       <ScrollToTop />
 
       <Header />
-
-      <Routes>
-        
-        <Route path='/' element={<Home />} />
-        
-        
-        <Route path='/about' element={<About />} />
-        
-        <Route path='/sign-in' element={<SignIn />} />
-        <Route path='/sign-up' element={<SignUp />} />
-        <Route path='/search' element={<Search />} />
-        <Route element={<PrivateRoute />}>
-          <Route path='/dashboard' element={<Dashboard />} />
-        </Route>
-        <Route element={<OnlyAdminPrivateRoute />}>
-          <Route path='/create-post' element={<CreatePost />} />
-          <Route path='/update-post/:postId' element={<UpdatePost />} />
+      <div>
+        {loading ? ( <LoadingSpinner/>):(
+        <Routes>
           
-        </Route>
+          <Route path='/' element={<Home />} />
+          
+          
+          <Route path='/about' element={<About />} />
+          
+          <Route path='/sign-in' element={<SignIn />} />
+          <Route path='/sign-up' element={<SignUp />} />
+          <Route path='/search' element={<Search />} />
+          <Route element={<PrivateRoute />}>
+            <Route path='/dashboard' element={<Dashboard />} />
+          </Route>
+          <Route element={<OnlyAdminPrivateRoute />}>
+            <Route path='/create-post' element={<CreatePost />} />
+            <Route path='/update-post/:postId' element={<UpdatePost />} />
+            
+          </Route>
 
-        <Route path='/blog' element={<Blog />} />
-        <Route path='/gallery' element={<Gallery />} />
-        
-        <Route path='/post/:postSlug' element={<PostPage />} />
-      </Routes>
+          <Route path='/blog' element={<Blog />} />
+          <Route path='/gallery' element={<Gallery />} />
+          
+          <Route path='/post/:postSlug' element={<PostPage />} />
+        </Routes> )}
+      </div>
       <BackToTopButton/>
       <Footer />
     </BrowserRouter>

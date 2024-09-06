@@ -1,8 +1,8 @@
-import { Button, Spinner } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import CommentSection from '../components/CommentSection';
 import PostCard from '../components/PostCard';
+import LoadingSpinner from '../constants/LoadingSpinner';
 
 export default function PostPage() {
   const { postSlug } = useParams();
@@ -36,24 +36,27 @@ export default function PostPage() {
   }, [postSlug]);
 
   useEffect(() => {
+    if (post) {
     try {
       const fetchRecentPosts = async () => {
-        const res = await fetch(`/api/post/getposts?limit=3`);
+        const res = await fetch(`/api/post/getposts?category=${post.category}&limit=3`);
         const data = await res.json();
         if (res.ok) {
-          setRecentPosts(data.posts);
+          const filteredPost = data.posts.filter(p => p._id !== post._id);
+          setRecentPosts(filteredPost);
+          
         }
       };
       fetchRecentPosts();
     } catch (error) {
       console.log(error.message);
-    }
-  }, []);
+    }}
+  }, [post]);
 
   if (loading)
     return (
       <div className='flex justify-center items-center min-h-screen'>
-        <Spinner size='xl' />
+        <LoadingSpinner />
       </div>
     );
   return (
@@ -89,7 +92,7 @@ export default function PostPage() {
       <CommentSection postId={post._id} />
 
       <div className='flex flex-col justify-center items-center mb-5'>
-        <h1 className='text-xl mt-5'>Recent articles</h1>
+        <h1 className='text-3xl mt-5 font-semibold mb-5'><span className='text-[--cta] font-semibold'>Related</span> Posts</h1>
         <div className='grid gap-4 lg:grid-cols-3 sm:max-lg:grid-cols-2'>
           {recentPosts &&
             recentPosts.map((post) => <PostCard key={post._id} post={post} />)}
